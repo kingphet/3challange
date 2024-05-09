@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- You may need to adjust the path to your logo image -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body>
+  <div class="flex min-h-full flex-1 flex-col justify-center p-6 py-12 lg:px-8">
+    <div class="sm:mx-auto text-2xl sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-32 w-auto" src="https://scontent.fvte1-1.fna.fbcdn.net/v/t39.30808-6/415955946_273590329056157_484932800432091591_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFIncswVeAVGOZClQJnAnCt1qO8nvoycPjWo7ye-jJw-KY7bst21TPZWg3qvQVXupNmzv0Q0dMdRKdBxfCd_GU5&_nc_ohc=qJlLKE9qiNUQ7kNvgEV3JeE&_nc_ht=scontent.fvte1-1.fna&oh=00_AfCeGOxbYlfP3A0PlrsmiYdudscKK7iuNrkzeo7OTXkrkA&oe=6642405E" alt="" />
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" id="loginForm">
+        <div>
+          <label for="username" class="block text-sm font-bold leading-6 text-gray-700">ຊື່ຜູ້ໃຊ້</label>
+          <div class="mt-2">
+            <input id="username" placeholder="ຊື່ຜູ້ໃຊ້" name="username" required class="block w-full rounded-md border-0 bg-gray-200 outline-none px-3 py-1.5 text-gray-700 shadow-sm placeholder:text-gray-400" />
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-bold leading-6 text-gray-700">ລະຫັດຜ່ານ</label>
+          </div>
+          <div class="mt-2">
+            <input id="password" placeholder="ລະຫັດຜ່ານ" name="password" type="password" required class="block w-full rounded-md border-0 bg-gray-200 outline-none px-3 py-2 text-gray-700 shadow-sm placeholder:text-gray-400" />
+          </div>
+        </div>
+
+        <div class="flex justify-center items-center">
+          <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">ເຂົ້າສູ່ລະບົບ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginForm = document.getElementById("loginForm");
+  
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+  
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+  
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+  
+        if (username.trim() === "" || password.trim() === "") {
+          alert("Please fill in all fields.");
+          return;
+        }
+  
+        const data = {
+          username: username,
+          password: password
+        };
+  
+        fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (responseData) { // Use a variable name to hold the parsed data
+          alert(responseData); // Log or use the parsed data as needed
+        })
+      });
+    });
+  </script>
+</body>
+</html>
